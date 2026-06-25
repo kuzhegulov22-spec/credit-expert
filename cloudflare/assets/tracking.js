@@ -29,7 +29,7 @@ window.FUNNEL_CONFIG = {
   telegramChatId: '-5457549598',
 
   // Куда вести после успешной отправки формы
-  thankYouUrl: 'thanks.html',
+  thankYouUrl: 'thanks',
 
   // WhatsApp менеджера (для дисквалифицированных лидов)
   whatsappUrl: 'https://wa.me/77771512431',
