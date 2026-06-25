@@ -106,8 +106,10 @@ export async function onRequestPost(context) {
       };
       if (env.META_TEST_EVENT_CODE) payload.test_event_code = env.META_TEST_EVENT_CODE;
 
+      // Pixel ID — публичный, не секрет. Берём из env, иначе фолбэк на зашитый.
+      const pixelId = env.META_PIXEL_ID || "1448492083750122";
       const capiRes = await fetch(
-        `https://graph.facebook.com/v19.0/${env.META_PIXEL_ID}/events?access_token=${env.META_CAPI_TOKEN}`,
+        `https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${env.META_CAPI_TOKEN}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
