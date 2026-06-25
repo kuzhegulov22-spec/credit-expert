@@ -1,0 +1,503 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-06-25 06:47:17",
+  "containerVersion": {
+    "path": "accounts/1000000000000/containers/100000000/versions/0",
+    "accountId": "1000000000000",
+    "containerId": "100000000",
+    "containerVersionId": "0",
+    "container": {
+      "path": "accounts/1000000000000/containers/100000000",
+      "accountId": "1000000000000",
+      "containerId": "100000000",
+      "name": "Кредитный Expert",
+      "publicId": "GTM-NXDMQN28",
+      "usageContext": [
+        "WEB"
+      ],
+      "fingerprint": "0",
+      "tagManagerUrl": "https://tagmanager.google.com/"
+    },
+    "tag": [
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "tagId": "200",
+        "name": "Meta Pixel - Base + PageView",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;\nn.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;\nt.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,\ndocument,'script','https://connect.facebook.net/en_US/fbevents.js');\nfbq('init','1448492083750122');\nfbq('track','PageView');\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "2147479553"
+        ],
+        "tagFiringOption": "ONCE_PER_LOAD"
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "tagId": "201",
+        "name": "Meta Pixel - Lead",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n(function(){\n  var phone = \"{{DLV - phone}}\";\n  var name  = \"{{DLV - name}}\";\n  var eid   = \"{{DLV - event_id}}\";\n  var am = {};\n  if (phone && phone !== \"undefined\") am.ph = phone; // Pixel хэширует сам\n  if (name  && name  !== \"undefined\") am.fn = name;\n  if (window.fbq) {\n    if (am.ph || am.fn) fbq('init','1448492083750122', am); // advanced matching\n    fbq('track','Lead', {}, { eventID: eid }); // eventID = дедуп с CAPI\n  }\n})();\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "100"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "setupTag": [
+          {
+            "tagName": "Meta Pixel - Base + PageView",
+            "stopOnSetupFailure": true
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "tagId": "202",
+        "name": "Meta Pixel - Contact (WhatsApp)",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\nif (window.fbq) fbq('track','Contact');\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "101"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "setupTag": [
+          {
+            "tagName": "Meta Pixel - Base + PageView",
+            "stopOnSetupFailure": true
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "tagId": "203",
+        "name": "Meta Pixel - QuizStart (custom)",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\nif (window.fbq) fbq('trackCustom','QuizStart');\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "102"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "setupTag": [
+          {
+            "tagName": "Meta Pixel - Base + PageView",
+            "stopOnSetupFailure": true
+          }
+        ]
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "triggerId": "100",
+        "name": "CE - lead_submit",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "lead_submit"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "triggerId": "101",
+        "name": "CE - whatsapp_click",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "whatsapp_click"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "triggerId": "102",
+        "name": "CE - quiz_start",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "quiz_start"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "1",
+        "name": "DLV - event_id",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "event_id"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "2",
+        "name": "DLV - phone",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "phone"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "3",
+        "name": "DLV - name",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "name"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "4",
+        "name": "DLV - funnel_type",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "funnel_type"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "5",
+        "name": "DLV - is_eligible",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "is_eligible"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "6",
+        "name": "DLV - utm_source",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "utm_source"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "7",
+        "name": "DLV - utm_medium",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "utm_medium"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "8",
+        "name": "DLV - utm_campaign",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "utm_campaign"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "9",
+        "name": "DLV - utm_content",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "utm_content"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "10",
+        "name": "DLV - utm_term",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "utm_term"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "11",
+        "name": "DLV - fbclid",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "fbclid"
+          }
+        ]
+      },
+      {
+        "accountId": "1000000000000",
+        "containerId": "100000000",
+        "variableId": "12",
+        "name": "DLV - gclid",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "gclid"
+          }
+        ]
+      }
+    ],
+    "fingerprint": "0"
+  }
+}
