@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Спасибо — Кредитный Expert</title>
+<meta name="robots" content="noindex,nofollow" />
+
+<!-- ================= Google Tag Manager ================= -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NXDMQN28');</script>
+<!-- ============= End Google Tag Manager ============= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXDMQN28" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<main class="page">
+  <div class="card">
+    <div class="brand">
+      <svg class="brand__mark" viewBox="0 0 100 100" fill="none" aria-label="Кредитный Expert">
+        <circle cx="50" cy="50" r="47" stroke="#aab3c4" stroke-width="2.5"/>
+        <circle cx="50" cy="50" r="42" fill="#0e1830"/>
+        <rect x="28" y="56" width="9" height="16" rx="1.5" fill="#3a68bf"/>
+        <rect x="41" y="46" width="9" height="26" rx="1.5" fill="#7e8aa0"/>
+        <rect x="54" y="38" width="9" height="34" rx="1.5" fill="#aab3c4"/>
+        <path d="M26 60 Q40 50 52 42 T72 28" stroke="#e4e8f0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M66 26 L74 26 L72 34 Z" fill="#e4e8f0"/>
+      </svg>
+      <div class="brand__text">
+        <span class="brand__kicker">Кредитный</span>
+        <span class="brand__name">EXPERT</span>
+      </div>
+    </div>
+
+    <div class="thanks">
+      <svg class="thanks__icon" viewBox="0 0 96 96" fill="none" aria-hidden="true">
+        <circle cx="48" cy="48" r="44" fill="#102a1d" stroke="#3fae6f" stroke-width="2.5"/>
+        <path d="M32 49l11 11 22-24" stroke="#3fae6f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h1 class="thanks__title">Заявка принята</h1>
+      <p class="thanks__msg" id="thanksMsg">Спасибо! Мы свяжемся с Вами в ближайшее время.</p>
+      <p class="thanks__meta" id="thanksMeta"></p>
+    </div>
+  </div>
+
+  <p class="footer">Кредитный Expert · независимая консультация по кредитам</p>
+</main>
+
+<script src="assets/tracking.js"></script>
+<script>
+(function () {
+  var T = window.Tracking;
+
+  var params = new URLSearchParams(window.location.search);
+  var funnelType = params.get('ft') || 'unknown';
+
+  // === Время ОТПРАВКИ формы, переданное через URL (created_at) ===
+  // Если параметра нет (прямой заход) — деградируем к текущему времени.
+  var createdAtParam = params.get('created_at');
+  var submitDate;
+  if (createdAtParam) {
+    var parsed = new Date(createdAtParam);
+    submitDate = isNaN(parsed.getTime()) ? new Date() : parsed;
+  } else {
+    submitDate = new Date();
+  }
+
+  // Рабочее время по ЛОКАЛЬНОМУ времени устройства (соответствует времени отправки).
+  // created_at — это ISO-метка момента отправки; getHours() вернёт час
+  // в локальной зоне браузера, что и есть «локальное время страницы».
+  var cfg = window.FUNNEL_CONFIG.workHours;
+  var submitHour = submitDate.getHours();
+  var inWorkHours = (submitHour >= cfg.start && submitHour < cfg.end);
+
+  var msgEl = document.getElementById('thanksMsg');
+  var metaEl = document.getElementById('thanksMeta');
+
+  if (inWorkHours) {
+    msgEl.textContent = 'Спасибо, менеджеры уже спорят, кто первый с Вами свяжется.';
+  } else {
+    msgEl.textContent = 'Спасибо! Мы свяжемся с Вами в рабочее время с 10:00 до 20:00.';
+  }
+
+  // Доп. метка с временем отправки (для наглядности)
+  try {
+    var t = submitDate.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+    metaEl.textContent = 'Время отправки заявки: ' + t;
+  } catch (e) {}
+
+  // dataLayer: thank_you_view
+  var ctx = T.getTrackingContext();
+  T.dl('thank_you_view', Object.assign({
+    funnel_type: funnelType,
+    created_at: submitDate.toISOString(),
+    in_work_hours: inWorkHours,
+  }, ctx));
+})();
+</script></body>
+</html>

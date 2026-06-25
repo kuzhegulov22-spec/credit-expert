@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Кредитный Expert — помощь в одобрении кредита</title>
+<meta name="description" content="Бесплатная консультация кредитного эксперта. Подберём решение под вашу ситуацию." />
+<meta name="robots" content="noindex,nofollow" />
+
+<!-- ================= Google Tag Manager ================= -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NXDMQN28');</script>
+<!-- ============= End Google Tag Manager ============= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXDMQN28" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<main class="page">
+  <div class="card">
+    <!-- Бренд -->
+    <div class="brand">
+      <svg class="brand__mark" viewBox="0 0 100 100" fill="none" aria-label="Кредитный Expert">
+        <circle cx="50" cy="50" r="47" stroke="#aab3c4" stroke-width="2.5"/>
+        <circle cx="50" cy="50" r="42" fill="#0e1830"/>
+        <rect x="28" y="56" width="9" height="16" rx="1.5" fill="#3a68bf"/>
+        <rect x="41" y="46" width="9" height="26" rx="1.5" fill="#7e8aa0"/>
+        <rect x="54" y="38" width="9" height="34" rx="1.5" fill="#aab3c4"/>
+        <path d="M26 60 Q40 50 52 42 T72 28" stroke="#e4e8f0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M66 26 L74 26 L72 34 Z" fill="#e4e8f0"/>
+      </svg>
+      <div class="brand__text">
+        <span class="brand__kicker">Кредитный</span>
+        <span class="brand__name">EXPERT</span>
+      </div>
+    </div>
+
+    <h1 class="headline">Поможем разобраться с вашим кредитным вопросом</h1>
+    <p class="subhead">Оставьте заявку — кредитный эксперт перезвонит, изучит вашу ситуацию и подскажет рабочие варианты.</p>
+
+    <!-- Статус ошибки отправки -->
+    <div class="status status--error" id="formStatus" role="alert"></div>
+
+    <form id="leadForm" novalidate>
+      <div class="field">
+        <label class="field__label" for="name">Как вас зовут?</label>
+        <input class="input" type="text" id="name" name="name" placeholder="Ваше имя" autocomplete="name" required />
+        <span class="field__error" id="nameError">Пожалуйста, укажите имя</span>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="phone">Номер телефона</label>
+        <input class="input" type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" inputmode="tel" autocomplete="tel" required />
+        <span class="field__error" id="phoneError">Проверьте номер телефона</span>
+      </div>
+
+      <button class="btn btn--primary" type="submit" id="submitBtn">
+        <span class="btn__spinner" aria-hidden="true"></span>
+        <span class="btn__label">Получить консультацию</span>
+      </button>
+      <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Консультация бесплатна и ни к чему не обязывает.</p>
+    </form>
+
+    <div class="trust">
+      <span class="trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Конфиденциально
+      </span>
+      <span class="trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Перезвоним быстро
+      </span>
+      <span class="trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Без обязательств
+      </span>
+    </div>
+  </div>
+
+  <p class="footer">Кредитный Expert · независимая консультация по кредитам</p>
+</main>
+
+<script src="assets/tracking.js"></script>
+<script>
+(function () {
+  var T = window.Tracking;
+  var FUNNEL = 'simple_form';
+
+  // page_view
+  T.firePageView(FUNNEL);
+
+  var form = document.getElementById('leadForm');
+  var nameEl = document.getElementById('name');
+  var phoneEl = document.getElementById('phone');
+  var nameErr = document.getElementById('nameError');
+  var phoneErr = document.getElementById('phoneError');
+  var btn = document.getElementById('submitBtn');
+  var statusEl = document.getElementById('formStatus');
+  var submitted = false;
+
+  function clearError(input, errEl) {
+    input.setAttribute('aria-invalid', 'false');
+    errEl.classList.remove('show');
+  }
+  function showError(input, errEl) {
+    input.setAttribute('aria-invalid', 'true');
+    errEl.classList.add('show');
+  }
+  nameEl.addEventListener('input', function () { clearError(nameEl, nameErr); });
+  phoneEl.addEventListener('input', function () { clearError(phoneEl, phoneErr); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (submitted) return;
+
+    var nameVal = nameEl.value.trim();
+    var phoneVal = phoneEl.value.trim();
+    var ok = true;
+
+    if (!T.isValidName(nameVal)) { showError(nameEl, nameErr); ok = false; }
+    if (!T.isValidPhone(phoneVal)) { showError(phoneEl, phoneErr); ok = false; }
+    if (!ok) return;
+
+    // защита от повторной отправки
+    submitted = true;
+    btn.disabled = true;
+    btn.classList.add('is-loading');
+    statusEl.classList.remove('show');
+
+    var ctx = T.getTrackingContext();
+    var created = T.nowCreatedAt();
+    var phoneNorm = T.normalizePhone(phoneVal);
+    var eventId = T.genEventId();
+    var fb = T.getFbCookies();
+
+    // 1) dataLayer: lead_submit (GTM поймает и активирует Meta Lead с тем же event_id)
+    T.dl('lead_submit', Object.assign({
+      funnel_type: FUNNEL,
+      created_at: created.iso,
+      name: nameVal,
+      phone: phoneNorm,
+      is_eligible: true,
+      event_id: eventId,
+    }, ctx));
+
+    // 2) Лид в Telegram через прокси
+    var lead = {
+      type: 'simple_form',
+      lead_kind: 'qualified',
+      event_id: eventId,
+      event_name: 'Lead',
+      fbp: fb.fbp,
+      fbc: fb.fbc,
+      name: nameVal,
+      phone: phoneNorm,
+      created_at: created.iso,
+      created_at_local: created.local,
+      page_url: ctx.page_url,
+      utm_source: ctx.utm_source,
+      utm_medium: ctx.utm_medium,
+      utm_campaign: ctx.utm_campaign,
+      utm_content: ctx.utm_content,
+      utm_term: ctx.utm_term,
+      fbclid: ctx.fbclid,
+      gclid: ctx.gclid,
+      referrer: ctx.referrer,
+    };
+
+    function goThanks() {
+      var url = T.appendTrackingToUrl(window.FUNNEL_CONFIG.thankYouUrl, {
+        created_at: created.iso,
+        ft: FUNNEL,
+      });
+      window.location.href = url;
+    }
+
+    // Отправляем и уходим на thank-you (не блокируем пользователя надолго)
+    var done = false;
+    var go = function () { if (!done) { done = true; goThanks(); } };
+    T.sendToTelegram(lead).then(go);
+    setTimeout(go, 1500); // подстраховка: уводим максимум через 1.5с
+  });
+})();
+</script></body>
+</html>
