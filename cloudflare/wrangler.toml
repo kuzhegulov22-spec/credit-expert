@@ -1,0 +1,15 @@
+name = "credit-expert"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "."
+
+# Деплой из CLI (без GitHub):
+#   npm i -g wrangler
+#   wrangler login
+#   wrangler pages deploy .
+#
+# Секреты НЕ хранить в этом файле. Задать через дашборд
+# (Pages → Settings → Environment variables) или:
+#   wrangler pages secret put TG_BOT_TOKEN
+#   wrangler pages secret put TG_CHAT_ID
+#   wrangler pages secret put META_PIXEL_ID
+#   wrangler pages secret put META_CAPI_TOKEN
