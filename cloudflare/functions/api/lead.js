@@ -39,13 +39,29 @@ export async function onRequestPost(context) {
 
   const results = {};
 
+  // chat_id группы: берём из фронта или env, нормализуем.
+  // У групп/супергрупп id отрицательный — если минус потеряли, восстановим.
+  function normalizeChatId(raw) {
+    if (raw === undefined || raw === null) return raw;
+    let s = String(raw).trim();
+    if (s.startsWith("@")) return s; // публичный username канала
+    // только цифры (возможен ведущий минус)
+    if (/^-?\d+$/.test(s)) {
+      // супергруппы Telegram имеют id вида -100..., обычные группы — отрицательные.
+      // Если пришло положительное многозначное (>= 6 цифр, не похоже на личный чат) — добавим минус.
+      if (!s.startsWith("-") && s.length >= 6) s = "-" + s;
+    }
+    return s;
+  }
+  const chatId = normalizeChatId(b.chat_id || env.TG_CHAT_ID);
+
   // 1) Telegram — текст готовится на фронте (b.tg_text)
   try {
     const tgRes = await fetch(`https://api.telegram.org/bot${env.TG_BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        chat_id: b.chat_id || env.TG_CHAT_ID,
+        chat_id: chatId,
         text: b.tg_text || "Новый лид:\n" + JSON.stringify(b),
         parse_mode: "HTML",
         disable_web_page_preview: true,
@@ -60,10 +76,11 @@ export async function onRequestPost(context) {
   if (b.lead_kind === "qualified" && b.event_name) {
     try {
       const ip = (request.headers.get("CF-Connecting-IP") || "").trim();
+      const ua = b.client_user_agent || request.headers.get("User-Agent") || undefined;
       const userData = {
         ph: await hashPhone(b.phone),
         fn: await sha256(b.name),
-        client_user_agent: b.client_user_agent,
+        client_user_agent: ua,
         fbp: b.fbp || undefined,
         fbc: b.fbc || undefined,
         client_ip_address: ip || undefined,
