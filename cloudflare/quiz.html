@@ -363,17 +363,50 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   // WhatsApp клик
   var waBtn = document.getElementById('waBtn');
   waBtn.href = window.FUNNEL_CONFIG.whatsappUrl;
+  var waSent = false; // защита от повторной отправки Contact
   waBtn.addEventListener('click', function () {
     var ctx = T.getTrackingContext();
+    var created = T.nowCreatedAt();
+    var eventId = T.genEventId();
+    var fb = T.getFbCookies();
+
+    // 1) dataLayer: whatsapp_click (Pixel Contact через GTM, с тем же event_id)
     T.dl('whatsapp_click', Object.assign({
       funnel_type: FUNNEL,
-      created_at: T.nowCreatedAt().iso,
+      created_at: created.iso,
       official_work: answers.official_work,
       pension_last_6m: answers.pension_last_6m,
       active_overdue: answers.active_overdue,
       overdue_days_bucket: answers.overdue_days_bucket,
       is_eligible: false,
+      event_id: eventId,
     }, ctx));
+
+    // 2) Серверное событие Contact в Meta CAPI (через /api/lead). Без Telegram-сообщения.
+    if (!waSent) {
+      waSent = true;
+      T.sendToTelegram({
+        type: 'whatsapp_click',
+        lead_kind: 'qualified',   // чтобы функция отправила CAPI-событие
+        event_name: 'Contact',
+        notify_telegram: false,   // НЕ слать сообщение в группу на клик
+        event_id: eventId,
+        fbp: fb.fbp,
+        fbc: fb.fbc,
+        official_work: answers.official_work,
+        pension_last_6m: answers.pension_last_6m,
+        active_overdue: answers.active_overdue,
+        overdue_days_bucket: answers.overdue_days_bucket,
+        is_eligible: false,
+        created_at: created.iso,
+        created_at_local: created.local,
+        page_url: ctx.page_url,
+        event_source_url: ctx.page_url,
+        utm_source: ctx.utm_source, utm_medium: ctx.utm_medium,
+        utm_campaign: ctx.utm_campaign, utm_content: ctx.utm_content, utm_term: ctx.utm_term,
+        fbclid: ctx.fbclid, gclid: ctx.gclid, referrer: ctx.referrer,
+      });
+    }
   });
 
   // ---- Сабмит формы квиза ----

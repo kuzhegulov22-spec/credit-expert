@@ -55,8 +55,11 @@ export async function onRequestPost(context) {
   }
   const chatId = normalizeChatId(b.chat_id || env.TG_CHAT_ID);
 
-  // 1) Telegram — текст готовится на фронте (b.tg_text)
-  try {
+  // 1) Telegram — текст готовится на фронте (b.tg_text).
+  // Пропускаем, если notify_telegram === false (напр. клик WhatsApp — только CAPI).
+  if (b.notify_telegram === false) {
+    results.telegram = "skipped";
+  } else try {
     const tgRes = await fetch(`https://api.telegram.org/bot${env.TG_BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
